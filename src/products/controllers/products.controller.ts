@@ -12,6 +12,7 @@ import {
   Res,
   // ParseIntPipe,
 } from '@nestjs/common';
+import { ApiOperation, ApiTags } from '@nestjs/swagger';
 
 import { Response } from 'express';
 import { ParseIntPipe } from '../../common/parse-int.pipe';
@@ -19,6 +20,7 @@ import { CreateProductDto, UpdateProductDto } from '../dtos/products.dtos';
 
 import { ProductsService } from './../services/products.service';
 
+@ApiTags('Products')
 @Controller('products')
 export class ProductsController {
   constructor(private productsService: ProductsService) {}
@@ -41,6 +43,9 @@ export class ProductsController {
   }
 
   @Get(':productId')
+  @ApiOperation({
+    summary: 'Get products by id',
+  })
   @HttpCode(HttpStatus.ACCEPTED)
   getOne(@Param('productId', ParseIntPipe) productId: number) {
     // response.status(200).send({

@@ -11,7 +11,9 @@ import {
 
 import { CustomersService } from '../services/customers.service';
 import { CreateCustomerDto, UpdateCustomerDto } from '../dtos/customer.dto';
+import { ApiOperation, ApiTags } from '@nestjs/swagger';
 
+@ApiTags('Customers')
 @Controller('customers')
 export class CustomerController {
   constructor(private customersService: CustomersService) {}
@@ -22,6 +24,9 @@ export class CustomerController {
   }
 
   @Get(':id')
+  @ApiOperation({
+    summary: 'Get customers by name',
+  })
   get(@Param('id', ParseIntPipe) id: number) {
     return this.customersService.findOne(id);
   }

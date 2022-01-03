@@ -5,12 +5,21 @@ import { AppService } from './app.service';
 import { UsersModule } from './users/users.module';
 import { ProductsModule } from './products/products.module';
 import { DatabaseModule } from './database/database.module';
+import { environments } from './enviroments';
+import * as Joi from 'joi';
+import config from './config';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
-      envFilePath: '.env',
+      envFilePath: environments[process.env.NODE_ENV] || '.env',
       isGlobal: true,
+      load: [config],
+      validationSchema: Joi.object({
+        API_KEY: Joi.string().required(),
+        DATABASE_NAME: Joi.string().required(),
+        DATABASE_PORT: Joi.number().required(),
+      }),
     }),
     HttpModule,
     UsersModule,
@@ -26,7 +35,7 @@ import { DatabaseModule } from './database/database.module';
         const tasks = await http
           .get('https://jsonplaceholder.typicode.com/todos')
           .toPromise();
-        return tasks.data;
+        return tasks.data[1];
       },
       inject: [HttpService],
     },
