@@ -1,12 +1,13 @@
 import { Module, HttpModule, HttpService } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
+import * as Joi from 'joi';
+
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { UsersModule } from './users/users.module';
 import { ProductsModule } from './products/products.module';
 import { DatabaseModule } from './database/database.module';
 import { environments } from './enviroments';
-import * as Joi from 'joi';
 import config from './config';
 
 @Module({
@@ -19,6 +20,11 @@ import config from './config';
         API_KEY: Joi.string().required(),
         DATABASE_NAME: Joi.string().required(),
         DATABASE_PORT: Joi.number().required(),
+        POSTGRES_DB: Joi.string().required(),
+        POSTGRES_USER: Joi.string().required(),
+        POSTGRES_PASSWORD: Joi.string().required(),
+        POSTGRES_PORT: Joi.number().required(),
+        POSTGRES_HOST: Joi.string().hostname().required(),
       }),
     }),
     HttpModule,

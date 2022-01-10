@@ -18,7 +18,12 @@
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
-    "test:e2e": "jest --config ./test/jest-e2e.json"
+    "test:e2e": "jest --config ./test/jest-e2e.json",
+    "typeorm": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js",
+    "migrations:generate": "yarn typeorm -- migration:generate -n",
+    "migrations:run": "yarn typeorm -- migration:run",
+    "migrations:show": "yarn typeorm -- migration:show",
+    "migrations:drop": "yarn typeorm -- migration:drop"
   },
   "dependencies": {
     "@nestjs/common": "^7.6.13",
@@ -27,13 +32,16 @@
     "@nestjs/mapped-types": "^0.3.0",
     "@nestjs/platform-express": "^7.6.13",
     "@nestjs/swagger": "4.7.16",
-    "class-transformer": "^0.4.0",
+    "@nestjs/typeorm": "^8.0.2",
+    "class-transformer": "0.4.0",
     "class-validator": "^0.13.1",
+    "joi": "^17.5.0",
+    "pg": "^8.7.1",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",
-    "rxjs": "^6.6.6",
+    "rxjs": "^7",
     "swagger-ui-express": "4.1.6",
-    "joi": "^17.5.0"
+    "typeorm": "^0.2.41"
   },
   "devDependencies": {
     "@nestjs/cli": "^7.5.6",
@@ -42,6 +50,7 @@
     "@types/express": "^4.17.11",
     "@types/jest": "^26.0.20",
     "@types/node": "^14.14.31",
+    "@types/pg": "^8.6.3",
     "@types/supertest": "^2.0.10",
     "@typescript-eslint/eslint-plugin": "^4.15.2",
     "@typescript-eslint/parser": "^4.15.2",
@@ -75,6 +84,6 @@
     "testEnvironment": "node"
   },
   "engines": {
-    "node": "14.x"
+    "node": ">=15.x"
   }
 }
