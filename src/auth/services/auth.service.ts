@@ -8,17 +8,17 @@ import { PayloadToken } from '../models/token.models';
 @Injectable()
 export class AuthService {
   constructor(
-    private jwtService: JwtService,
     private usersService: UsersService,
+    private jwtService: JwtService,
   ) {}
 
   async validateUser(email: string, password: string) {
     const user = await this.usersService.findByEmail(email);
-    console.log(user);
     if (user) {
       const isMatch = await bcrypt.compare(password, user.password);
       if (isMatch) {
-        return user;
+        const { password, ...rta } = user;
+        return rta;
       }
     }
     return null;
