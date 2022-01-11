@@ -15,6 +15,6 @@ import { Category } from './entities/category.entity';
   controllers: [ProductsController, CategoriesController, BrandsController],
   providers: [ProductsService, BrandsService, CategoriesService],
   //Exportar modulos para usarlos dentro dentro de otros Modulos
-  exports: [ProductsService],
+  exports: [ProductsService, TypeOrmModule],
 })
 export class ProductsModule {}
