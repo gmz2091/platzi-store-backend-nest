@@ -4,7 +4,6 @@
   "description": "",
   "author": "",
   "private": true,
-  "type": "module",
   "license": "UNLICENSED",
   "scripts": {
     "prebuild": "rimraf dist",
@@ -98,6 +97,6 @@
     "testEnvironment": "node"
   },
   "engines": {
-    "node": ">=15.x"
+    "node": "14.x"
   }
 }
