@@ -37,7 +37,6 @@ export class ProductsController {
   constructor(private productsService: ProductsService) {}
 
   @Public()
-  @ApiOperation({ summary: 'List Of Products' })
   @Get()
   getProducts(
     @Query() params: FilterProductsDto,
