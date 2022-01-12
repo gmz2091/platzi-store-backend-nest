@@ -25,7 +25,7 @@
     "migrations:generate": "yarn typeorm -- migration:generate -n",
     "migrations:run": "yarn typeorm -- migration:run",
     "migrations:show": "yarn typeorm -- migration:show",
-    "migrations:drop": "yarn typeorm -- migration:drop"
+    "migrations:drop": "yarn typeorm -- schema:drop"
   },
   "dependencies": {
     "ts-node": "^9.1.1",
@@ -97,6 +97,6 @@
     "testEnvironment": "node"
   },
   "engines": {
-    "node": "14.x"
+    "node": ">=15.x"
   }
 }
