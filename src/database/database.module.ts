@@ -17,6 +17,7 @@ const ssl = getSsl();
       inject: [config.KEY],
       useFactory: (configService: ConfigType<typeof config>) => {
         return {
+          entities: ['src/entities/*.entity{.ts,.js}'],
           type: 'postgres',
           url: configService.postgresURL,
           synchronize: false,
