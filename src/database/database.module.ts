@@ -14,10 +14,8 @@ const ssl = getSsl();
 @Module({
   imports: [
     TypeOrmModule.forRootAsync({
-      // 👈 use TypeOrmModule
       inject: [config.KEY],
       useFactory: (configService: ConfigType<typeof config>) => {
-        // const { user, host, dbName, password, port } = configService.postgres;
         return {
           type: 'postgres',
           url: configService.postgresURL,
