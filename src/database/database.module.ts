@@ -4,9 +4,12 @@ import { Client } from 'pg';
 import config from 'src/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Product } from 'src/products/entities/product.entity';
+import { getSsl } from '../common/get-ssl';
 
 const API_KEY = '12345634';
 const API_KEY_PROD = 'PROD1212121SA';
+const ssl = getSsl();
+
 @Global()
 @Module({
   imports: [
@@ -16,14 +19,11 @@ const API_KEY_PROD = 'PROD1212121SA';
       useFactory: (configService: ConfigType<typeof config>) => {
         // const { user, host, dbName, password, port } = configService.postgres;
         return {
-          entities: ['dist/**/*.entity{.ts,.js}'],
           type: 'postgres',
           url: configService.postgresURL,
           synchronize: false,
           autoLoadEntities: true,
-          ssl: {
-            rejectUnauthorized: false,
-          },
+          ssl,
         };
       },
     }),
@@ -38,9 +38,7 @@ const API_KEY_PROD = 'PROD1212121SA';
       useFactory: (configService: ConfigType<typeof config>) => {
         const client = new Client({
           connectionString: configService.postgresURL,
-          ssl: {
-            rejectUnauthorized: false,
-          },
+          ssl,
         });
         client.connect();
         return client;
