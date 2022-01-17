@@ -38,6 +38,7 @@ export class CreateProductDto {
   readonly status: boolean;
 
   @IsNumber()
+  @IsNotEmpty()
   @IsPositive()
   @ApiProperty()
   readonly categories_id: number[];
