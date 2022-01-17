@@ -56,12 +56,12 @@ export class ProductsService {
     // newProduct.stock = data.stock;
     // newProduct.image = data.image;
     const newProduct = this.productRepository.create(data);
-    if (data.brandId) {
-      const brand = await this.brandRepo.findOne(data.brandId);
-      newProduct.brand = brand;
-    }
-    if (data.categoriesId) {
-      const categories = await this.categoryRepo.findByIds(data.categoriesId);
+    // if (data.brandId) {
+    //   const brand = await this.brandRepo.findOne(data.brandId);
+    //   newProduct.brand = brand;
+    // }
+    if (data.categories_id) {
+      const categories = await this.categoryRepo.findByIds(data.categories_id);
       newProduct.categories = categories;
     }
 
@@ -73,14 +73,14 @@ export class ProductsService {
     if (!product) {
       throw new NotFoundException(`Product #${id} not found`);
     }
-    if (changes.brandId) {
-      const brand = await this.brandRepo.findOne(changes.brandId);
-      product.brand = brand;
-    }
+    // if (changes.brandId) {
+    //   const brand = await this.brandRepo.findOne(changes.brandId);
+    //   product.brand = brand;
+    // }
 
-    if (changes.categoriesId) {
+    if (changes.categories_id) {
       const categories = await this.categoryRepo.findByIds(
-        changes.categoriesId,
+        changes.categories_id,
       );
       product.categories = categories;
     }

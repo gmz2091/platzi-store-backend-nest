@@ -63,7 +63,7 @@ export class ProductsController {
     return this.productsService.findOne(productId);
   }
 
-  @Roles(Role.ADMIN)
+  @Public()
   @Post()
   create(@Body() payload: CreateProductDto) {
     return this.productsService.create(payload);
@@ -74,10 +74,10 @@ export class ProductsController {
     return this.productsService.update(id, payload);
   }
 
-  @Put(':id/category/:categoryId')
+  @Put(':id/category/:categories_id')
   updateCategory(
     @Param('id', ParseIntPipe) id: number,
-    @Param('categoryId', ParseIntPipe) categoryId: number,
+    @Param('categories_id', ParseIntPipe) categoryId: number,
   ) {
     return this.productsService.updateCategoryByProduct(id, categoryId);
   }
@@ -86,11 +86,11 @@ export class ProductsController {
   delete(@Param('id') id: number) {
     return this.productsService.remove(id);
   }
-  @Delete(':id/category/:categoryId')
+  @Delete(':id/category/:categories_id')
   deleteCategory(
     @Param('id', ParseIntPipe) id: number,
-    @Param('categoryId', ParseIntPipe) categoryId: number,
+    @Param('categories_id', ParseIntPipe) categories_id: number,
   ) {
-    return this.productsService.removeCategoryByProduct(id, categoryId);
+    return this.productsService.removeCategoryByProduct(id, categories_id);
   }
 }
