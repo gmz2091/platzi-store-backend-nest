@@ -54,8 +54,8 @@ export class ProductsService {
     //   const categories = await this.categoryRepo.findByIds(data.categories_id);
     //   newProduct.categories = categories;
     // }
-    if (data.categories_id) {
-      const category = await this.categoryRepo.findOne(data.categories_id);
+    if (data.category_id) {
+      const category = await this.categoryRepo.findOne(data.category_id);
       newProduct.categories = category;
       return this.productRepository.save(newProduct);
     }

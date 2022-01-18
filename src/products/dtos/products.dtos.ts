@@ -42,7 +42,7 @@ export class CreateProductDto {
   @IsNotEmpty()
   @IsPositive()
   @ApiProperty()
-  readonly categories_id: number;
+  readonly category_id: number;
 }
 
 export class UpdateProductDto extends PartialType(CreateProductDto) {}
