@@ -40,7 +40,7 @@ export class ProductsController {
   getProducts(
     @Query() params: FilterProductsDto,
     @Query('offset') offset = 0,
-    @Query('brand') brand: string,
+    @Query('categories') categories: string,
   ) {
     // return {
     //   message: `products limit=> ${limit} offset=> ${offset} brand=> ${brand}`,
@@ -68,28 +68,29 @@ export class ProductsController {
     return this.productsService.create(payload);
   }
 
-  @Put(':id')
-  update(@Param('id') id: number, @Body() payload: UpdateProductDto) {
-    return this.productsService.update(id, payload);
-  }
+  // @Put(':id')
+  // update(@Param('id') id: number, @Body() payload: UpdateProductDto) {
+  //   return this.productsService.update(id, payload);
+  // }
 
-  @Put(':id/category/:categories_id')
-  updateCategory(
-    @Param('id', ParseIntPipe) id: number,
-    @Param('categories_id', ParseIntPipe) categoryId: number,
-  ) {
-    return this.productsService.updateCategoryByProduct(id, categoryId);
-  }
+  // @Put(':id/category/:categories_id')
+  // updateCategory(
+  //   @Param('id', ParseIntPipe) id: number,
+  //   @Param('categories_id', ParseIntPipe) categoryId: number,
+  // ) {
+  //   return this.productsService.updateCategoryByProduct(id, categoryId);
+  // }
 
-  @Delete(':id')
-  delete(@Param('id') id: number) {
-    return this.productsService.remove(id);
-  }
-  @Delete(':id/category/:categories_id')
-  deleteCategory(
-    @Param('id', ParseIntPipe) id: number,
-    @Param('categories_id', ParseIntPipe) categories_id: number,
-  ) {
-    return this.productsService.removeCategoryByProduct(id, categories_id);
-  }
+  // @Delete(':id')
+  // delete(@Param('id') id: number) {
+  //   return this.productsService.remove(id);
+  // }
+
+  // @Delete(':id/category/:categories_id')
+  // deleteCategory(
+  //   @Param('id', ParseIntPipe) id: number,
+  //   @Param('categories_id', ParseIntPipe) categories_id: number,
+  // ) {
+  //   return this.productsService.removeCategoryByProduct(id, categories_id);
+  // }
 }

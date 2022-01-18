@@ -26,20 +26,20 @@ export class ProductsService {
         where.price = Between(minPrice, maxPrice);
       }
       return this.productRepository.find({
-        relations: ['brand'],
+        relations: ['categories'],
         take: limit,
         skip: offset,
         where,
       });
     }
     return this.productRepository.find({
-      relations: ['brand'],
+      relations: ['categories'],
     });
   }
 
   async findOne(id: number) {
     const product = await this.productRepository.findOne(id, {
-      relations: ['brand', 'categories'],
+      relations: ['categories'],
     });
     if (!product) {
       throw new NotFoundException(`Product #${id} not found`);
@@ -48,75 +48,43 @@ export class ProductsService {
   }
 
   async create(data: CreateProductDto) {
-    // const newProduct = new Product();
-    // newProduct.image = data.image;
-    // newProduct.name = data.name;
-    // newProduct.description = data.description;
-    // newProduct.price = data.price;
-    // newProduct.stock = data.stock;
-    // newProduct.image = data.image;
     const newProduct = this.productRepository.create(data);
-    // if (data.brandId) {
-    //   const brand = await this.brandRepo.findOne(data.brandId);
-    //   newProduct.brand = brand;
+
+    // if (data.categories_id) {
+    //   const categories = await this.categoryRepo.findByIds(data.categories_id);
+    //   newProduct.categories = categories;
     // }
     if (data.categories_id) {
-      const categories = await this.categoryRepo.findByIds(data.categories_id);
-      newProduct.categories = categories;
+      const category = await this.categoryRepo.findOne(data.categories_id);
+      newProduct.categories = category;
+      return this.productRepository.save(newProduct);
     }
-
-    return this.productRepository.save(newProduct);
   }
 
-  async update(id: number, changes: UpdateProductDto) {
-    const product = await this.productRepository.findOne(id);
-    if (!product) {
-      throw new NotFoundException(`Product #${id} not found`);
-    }
-    // if (changes.brandId) {
-    //   const brand = await this.brandRepo.findOne(changes.brandId);
-    //   product.brand = brand;
-    // }
+  // async update(id: number, changes: UpdateProductDto) {
+  //   const product = await this.productRepository.findOne(id);
+  //   if (!product) {
+  //     throw new NotFoundException(`Product #${id} not found`);
+  //   }
 
-    if (changes.categories_id) {
-      const categories = await this.categoryRepo.findByIds(
-        changes.categories_id,
-      );
-      product.categories = categories;
-    }
+  //   if (changes.categories_id) {
+  //     const categories = await this.categoryRepo.findByIds(
+  //       changes.categories_id,
+  //     );
+  //     product.categories = categories;
+  //   }
 
-    this.productRepository.merge(product, changes);
-    return this.productRepository.save(product);
-  }
+  //   this.productRepository.merge(product, changes);
+  //   return this.productRepository.save(product);
+  // }
 
-  async removeCategoryByProduct(productId: number, categoryId: number) {
-    const product = await this.productRepository.findOne(productId, {
-      relations: ['categories'],
-    });
-    product.categories = product.categories.filter(
-      (item) => item.id !== categoryId,
-    );
-    return this.productRepository.save(product);
-  }
-
-  async updateCategoryByProduct(productId: number, categoryId: number) {
-    const product = await this.productRepository.findOne(productId, {
-      relations: ['categories'],
-    });
-    const category = await this.categoryRepo.findOne(categoryId);
-    product.categories.push(category);
-    return this.productRepository.save(product);
-    // product.categories = product.categories.filter(
-    //   (item) => item.id !== categoryId,
-    // );
-    // return this.productRepository.save(product);
-  }
-
-  async remove(id: number) {
-    const product = await this.productRepository.findOne(id);
-    if (!product) {
-      throw new NotFoundException(`Products #${id} not found`);
-    }
-    return this.productRepository.delete(id);
-  }
+  // async removeCategoryByProduct(productId: number, categoryId: number) {
+  //   const product = await this.productRepository.findOne(productId, {
+  //     relations: ['categories'],
+  //   });
+  //   product.categories = product.categories.filter(
+  //     (item) => item.id !== categoryId,
+  //   );
+  //   return this.productRepository.save(product);
+  // }
 }

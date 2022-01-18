@@ -31,7 +31,4 @@ export class Brand {
     default: () => 'CURRENT_TIMESTAMP',
   })
   updateAt: Date;
-
-  @OneToMany(() => Product, (product) => product.brand)
-  products: Product[];
 }

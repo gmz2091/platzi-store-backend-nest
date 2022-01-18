@@ -2,7 +2,9 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinColumn,
   ManyToMany,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
@@ -28,6 +30,6 @@ export class Category {
   })
   updateAt: Date;
 
-  @ManyToMany(() => Product, (product) => product.categories)
+  @OneToMany(() => Product, (product) => product.categories)
   products: Product[];
 }
